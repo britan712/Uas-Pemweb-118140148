@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Data</title>
+
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div>
+    <a href="../index.php" class="btn" style="margin-top: 10px !important;position: relative;top: 10px;">Kembali</a>
+</div>
+
+<h2 style="text-align: center;">Update Data</h2>
+<form id="updateForm" class="form-login">
+    <!-- Input hidden untuk menyimpan ID -->
+    <input type="hidden" id="updateId" name="id">
+
+    <div class="form-group">
+        <label for="updateName">Nama:</label>
+        <input class="input" type="text" id="updateName" name="name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="updateSubject">Mata Pelajaran:</label>
+        <input class="input" type="text" id="updateSubject" name="subject" required>
+    </div>
+
+    <div class="form-group">
+        <label for="updateAttendance">Kehadiran:</label>
+        <input class="input" type="checkbox" id="updateAttendance" name="attendance" value="1"> <span>Hadir</span>
+    </div>
+
+    <div class="form-group">
+        <label for="updateGrade">Nilai:</label>
+        <input type="radio" id="updateGradeA" name="grade" value="A"> A
+        <input type="radio" id="updateGradeB" name="grade" value="B"> B
+        <input type="radio" id="updateGradeC" name="grade" value="C"> C
+    </div>
+
+    <button class="btn btn-login" type="button" onclick="submitUpdateForm()">Update</button>
+</form>
+<script>
+    const apiUrl = "http://localhost/uas_britan/server/";
+
+    function fillUpdateForm(id) {
+        fetch(apiUrl + '/update_view.php?id=' + id)
+            .then(response => response.json())
+            .then(data => {
+                const updateForm = document.getElementById('updateForm');
+                const updateId = document.getElementById('updateId');
+                const updateName = document.getElementById('updateName');
+                const updateSubject = document.getElementById('updateSubject');
+                const updateAttendance = document.getElementById('updateAttendance');
+                const updateGradeA = document.getElementById('updateGradeA');
+                const updateGradeB = document.getElementById('updateGradeB');
+                const updateGradeC = document.getElementById('updateGradeC');
+
+                updateId.value = data.id;
+                updateName.value = data.name;
+                updateSubject.value = data.subject;
+                updateAttendance.checked = data.attendance === 1;
+                if (data.grade === 'A') {
+                    updateGradeA.checked = true;
+                } else if (data.grade === 'B') {
+                    updateGradeB.checked = true;
+                } else if (data.grade === 'C') {
+                    updateGradeC.checked = true;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching update data:', error);
+            });
+    }
+
+
+    function submitUpdateForm() {
+        const updateForm = document.getElementById('updateForm');
+        const formData = new FormData(updateForm);
+
+        fetch(apiUrl + '/update_data.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(message => {
+            console.log(message);
+            alert("Berhasil Memperbaharui Data.");
+            window.location.href = '../index.php';
+        })
+        .catch(error => {
+            console.error('Error updating data:', error);
+        });
+    }
+
+    window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const idToUpdate = urlParams.get('id');
+        fillUpdateForm(idToUpdate);
+    };
+</script>
+</body>
+</html>

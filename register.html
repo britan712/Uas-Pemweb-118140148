@@ -1,0 +1,59 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div>
+    <a href="../index.php" class="btn" style="margin-top: 10px !important;position: relative;top: 10px;">Kembali</a>
+</div>
+
+<h2 style="text-align: center;margin-top: 30px;">Register</h2>
+<form id="registerForm" class="form-login">
+    <div class="form-group">
+        <label for="registerUsername">Username:</label>
+        <input class="input" style="width: 100%" type="text" id="registerUsername" name="username" required><br>
+    </div>
+
+    <div class="form-group">
+        <label for="registerPassword">Password:</label>
+        <input class="input" style="width: 100%" type="password" id="registerPassword" name="password" required><br>
+    </div>
+
+    <button type="button" class="btn btn-login" onclick="register()">Register</button>
+</form>
+
+<script>
+    const apiUrl = "http://localhost/uas_britan/server/";
+    function register() {
+        const username = document.getElementById('registerUsername').value;
+        const password = document.getElementById('registerPassword').value;
+
+        fetch(apiUrl + 'Authentication/register_process.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Registration failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during registration:', error);
+            });
+    }
+</script>
+</body>
+</html>

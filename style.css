@@ -1,0 +1,99 @@
+body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+button {
+    margin-top: 10px;
+}
+
+.update-btn, .delete-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+.update-btn {
+    background-color: #4CAF50; /* Hijau */
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336; /* Merah */
+    color: white;
+}
+
+.table {
+    margin-top: 30px;
+}
+
+.form-insert {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.btn-form {
+    margin-top: 10px;margin-left: 10px;
+}
+
+.form-group {
+    padding: 10px 10px;
+}
+
+.form-group > label {
+    display: block;
+    font-weight: 700;
+}
+
+.form-group > input {
+    margin: 5px 0px;
+}
+
+.font-weight-bold {
+    font-weight: 700;
+}
+
+.btn {
+    padding: 7px 15px;
+    color: white;
+    background-color: #1767a9;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.text-danger {
+    color: #dc2525;
+}
+
+.img-error {
+    margin: 0 auto;
+}
+
+.form-login {
+  width: 20%;
+    margin: 0 auto;
+}
+
+.input {
+    padding: 10px 10px;
+    font-size: 13px;
+    border-radius: 5px;
+    border: 1px solid #a0a0a0;
+}
+
+.btn-login {
+    width: 100%;
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 10px 10px !important;
+}
